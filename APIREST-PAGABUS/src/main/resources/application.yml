@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:sqlserver://131.1.0.137:1433;databaseName=PAGABUS;encrypt=true;trustServerCertificate=true
+    username: sa
+    password: sa
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    database-platform: org.hibernate.dialect.SQLServerDialect
