@@ -3,6 +3,8 @@ package com.tde.apipagabus.config;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.servers.Server;
+
+import org.springdoc.core.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,11 +23,20 @@ public class SwaggerConfig {
                         .termsOfService("https://example.com/terms")
                         .contact(new io.swagger.v3.oas.models.info.Contact()
                                 .name("Equipo de Soporte")
-                                .email("soporte@pagabus.com")
-                                .url("https://pagabus.com")))
+                                .email("emmanuel.hernandezhh@gmail.com")
+                                .url("https://www.viaxer-transporte.mx/servicios")))
                 .servers(Arrays.asList(
-                        new Server().url("https://api.pagabus.com").description("Servidor de Producción"),
-                        new Server().url("http://localhost:8080").description("Servidor de Desarrollo")
+                		 new Server().url("http://localhost:8080").description("Servidor de Desarrollo"),
+                		 new Server().url("https://api.pagabus.com").description("Servidor de Producción")
+                       
                 ));
     }
-}
+    
+    @Bean
+    public GroupedOpenApi api() {
+        return GroupedOpenApi.builder()
+            .group("default")
+            .pathsToMatch("/api/**")
+            .build();
+    }
+}	

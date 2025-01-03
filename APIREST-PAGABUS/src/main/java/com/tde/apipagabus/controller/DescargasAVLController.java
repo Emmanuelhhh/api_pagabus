@@ -1,9 +1,8 @@
 package com.tde.apipagabus.controller;
 
-
 import com.tde.apipagabus.domain.response.BaseResponse;
-import com.tde.apipagabus.persistence.entity.DescargasPagaBus;
-import com.tde.apipagabus.service.DescargasPagaBusService;
+import com.tde.apipagabus.persistence.entity.DescargasAvl;
+import com.tde.apipagabus.service.DescargasAVLService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -16,37 +15,37 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/descargas-pagabus")
-public class DescargasPagaBusController {
+@RequestMapping("/api/descargas-avl")
+public class DescargasAVLController {
 
-    private final DescargasPagaBusService descargasPagaBusService;
+    private final DescargasAVLService descargasAVLService;
 
     @Autowired
-    public DescargasPagaBusController(DescargasPagaBusService descargasPagaBusService) {
-        this.descargasPagaBusService = descargasPagaBusService;
+    public DescargasAVLController(DescargasAVLService descargasAVLService) {
+        this.descargasAVLService = descargasAVLService;
     }
 
-    @Operation(summary = "Buscar descargas PAGABUS por modem ID", description = "Devuelve una lista de descargas PAGABUS asociadas a un ID de módem.")
+    @Operation(summary = "Buscar descargas AVL por modem ID", description = "Devuelve una lista de descargas asociadas a un ID de módem.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Registros encontrados"),
             @ApiResponse(responseCode = "404", description = "No se encontraron registros"),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @GetMapping("/modem/{modemId}")
-    public ResponseEntity<BaseResponse<List<DescargasPagaBus>>> findByModemId(@PathVariable String modemId) {
-        return descargasPagaBusService.findByModemId(modemId);
+    public ResponseEntity<BaseResponse<List<DescargasAvl>>> findByModemId(@PathVariable String modemId) {
+        return descargasAVLService.findByModemId(modemId);
     }
 
-    @Operation(summary = "Buscar descargas PAGABUS por rango de fechas", description = "Devuelve una lista de descargas PAGABUS dentro de un rango de fechas.")
+    @Operation(summary = "Buscar descargas AVL por rango de fechas", description = "Devuelve una lista de descargas dentro de un rango de fechas.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Registros encontrados"),
             @ApiResponse(responseCode = "404", description = "No se encontraron registros"),
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
     })
     @GetMapping("/fechas")
-    public ResponseEntity<BaseResponse<List<DescargasPagaBus>>> findByDateRange(
+    public ResponseEntity<BaseResponse<List<DescargasAvl>>> findByDateRange(
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
-        return descargasPagaBusService.findByDateRange(startDate, endDate);
+        return descargasAVLService.findByDateRange(startDate, endDate);
     }
 }
